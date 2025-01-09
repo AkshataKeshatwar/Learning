@@ -1,49 +1,41 @@
-import copy
-def mergeSort(arr, l, r, dtype):
-    if len(arr[l:r+1]) == 1:
-        dtype ="end"
-        #print(arr[l:r+1], l, r, dtype)
-    if l < r:
-        m = l + (r-l)//2
-        mergeSort(arr, l, m, "left")
-        mergeSort(arr, m+1, r, "right")
-        merge(arr, l, m, r)
+def mergeSort(arr):
+    if len(arr) == 1:
+        return arr
+    mid = len(arr)//2
+    L = arr[:mid]
+    R = arr[mid:]
+    mergeSort(L)
+    mergeSort(R)
+    merge(L, R, arr)
 
-def merge(arr, l, m, r):
-    L = copy.deepcopy(arr[l:m+1])
-    R = copy.deepcopy(arr[m+1:r+1])
-    
-
-    i = 0
-    j = 0
-    k = l
-    #print( L, i, m, R, j, r, arr)
-    while i < len(L) and j < len(R):
-        #print( {i}, "<", {len(L)}, "and", {j},  "<", {len(R)})
-        if L[i] <= R[j]:
-            arr[k] = L[i]
+def merge(x, y, arr):
+    len_l, len_r = len(x), len(y)
+    i = j  = k = 0
+    while i < len_l and j < len_r:
+        if x[i] < y[j]:
+            arr[k] = x[i]
             i += 1
         else:
-            arr[k] = R[j]
+            arr[k] =  y[j]
             j += 1
         k += 1
 
-    # Copy the remaining elements of L[], if there
-    # are any
-    while i < len(L):
-        arr[k] = L[i]
+    while i < len_l:
+        arr[k] = x[i]
         i += 1
         k += 1
- 
-    # Copy the remaining elements of R[], if there
-    # are any
-    while j < len(R) :
-        arr[k] = R[j]
+
+    while j < len_r:
+        arr[k] = y[j]
         j += 1
         k += 1
 
 if __name__ == "__main__":
-    arr = [5,34,6,55,76,23,7]
+    '''arr = [5,34,6,55,76,23,7]
+    x, y = [34,55,76,89], [4,54,77,90,99,101,203,400]
+    arr = merge(x, y)
+    print(arr)'''
+    arr = [5,34,6,90,88, 55,76,23,7]
     len_arr = len(arr)
-    mergeSort(arr, 0, len_arr-1, "node")
+    mergeSort(arr)
     print(arr)
