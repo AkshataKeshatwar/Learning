@@ -47,7 +47,7 @@ elements = [
         { 'name': 'aamir',  'transaction_amount': 800,  'device': 'iphone-8'},
     ]
 
-bubble_sort(elements, key='transaction_amount')
+bubble_sort(elements, key='name')
 
 import pprint
 pprint.pprint(elements)
